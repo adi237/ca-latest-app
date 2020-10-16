@@ -6,6 +6,10 @@ const CURRENT_RES_URL = "https://www.canada.ca/en/immigration-refugees-citizensh
 
 const app = express();
 
+app.get('/', function() {
+	res.send("Nothing Here");
+});
+
 app.get('/fetchLatestResults', async function (req, res) {
 	var results = await fetchResult();
 	console.log(results);  
