@@ -1,9 +1,29 @@
+const express = require("express");
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 
 const CURRENT_RES_URL = "https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada/express-entry/submit-profile/rounds-invitations.html";
 
-async function test(){
+var app = express();
+
+app.get('/fetchLatestResults', async function (req, res) {
+	var results = await fetchResult();
+	console.log(results);  
+	res.send(results);
+});
+
+app.listen(3000, () => {
+  console.log(`CA app listening at https://ca-latest-result.herokuapp.com:3000/fetchLatestResults`);
+});
+
+
+/*
+--------------------------------------------------------------------------------------------------------------
+						Functions
+--------------------------------------------------------------------------------------------------------------
+*/
+
+async function fetchResult(){
 
 try{
 
@@ -59,11 +79,3 @@ function createCurrentObjectFromHTML(arrDiv){
 
   return tempObj;
 }
-
-async function resolve(){
-var a = await test();
-console.log("Value of a is");
-console.log(a);
-}
-
-resolve();
