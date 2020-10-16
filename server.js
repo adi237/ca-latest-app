@@ -4,7 +4,7 @@ const { JSDOM } = jsdom;
 
 const CURRENT_RES_URL = "https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada/express-entry/submit-profile/rounds-invitations.html";
 
-var app = express();
+const app = express();
 
 app.get('/fetchLatestResults', async function (req, res) {
 	var results = await fetchResult();
