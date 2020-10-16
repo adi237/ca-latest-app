@@ -1,0 +1,25 @@
+{
+  "name": "ca-latest-result",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "dependencies": {
+    "axios": "^0.20.0",
+    "jsdom": "^16.4.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adi237/ca-latest-app.git"
+  },
+  "author": "Aditya Trivedi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/adi237/ca-latest-app/issues"
+  },
+  "homepage": "https://github.com/adi237/ca-latest-app#readme"
+}
