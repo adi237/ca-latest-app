@@ -1,6 +1,7 @@
 const express = require("express");
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
+const port = process.env.PORT || 3000;
 
 const CURRENT_RES_URL = "https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada/express-entry/submit-profile/rounds-invitations.html";
 
@@ -16,8 +17,8 @@ app.get('/fetchLatestResults', async function (req, res) {
 	res.send(results);
 });
 
-app.listen(3000, () => {
-  console.log(`CA app listening at https://ca-latest-result.herokuapp.com:3000/fetchLatestResults`);
+app.listen(port, () => {
+  console.log(`CA app listening at https://ca-latest-result.herokuapp.com:${port}/fetchLatestResults`);
 });
 
 
