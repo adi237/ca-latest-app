@@ -7,13 +7,9 @@ const CURRENT_RES_URL = "https://www.canada.ca/en/immigration-refugees-citizensh
 
 const app = express();
 
-app.get('/', function() {
-	res.send("Nothing Here");
-});
-
 app.get('/fetchLatestResults', async function (req, res) {
 	var results = await fetchResult();
-	console.log(results);  
+	console.log(results);
 	res.send(results);
 });
 
@@ -29,25 +25,33 @@ app.listen(port, () => {
 */
 
 async function fetchResult(){
+	var result;
 
-try{
+	try{
 
-console.log("Wait");
-let dom = await JSDOM.fromURL(CURRENT_RES_URL);
-console.log("Done");
+		console.log("Wait");
+		let dom = await JSDOM.fromURL(CURRENT_RES_URL);
+		console.log("Done");
 
-//console.log(dom);
-//console.log(dom.window.document.querySelectorAll(".mwsgeneric-base-html")[2].querySelectorAll("p").length);
-  
-var result = createCurrentObjectFromHTML(dom.window.document.querySelectorAll(".mwsgeneric-base-html")[2].querySelectorAll("p"));
+		//console.log(dom);
+		//console.log(dom.window.document.querySelectorAll(".mwsgeneric-base-html")[2].querySelectorAll("p").length);
+		var arrayDivs = dom.window.document.querySelectorAll(".mwsgeneric-base-html");
 
-//console.log(result);
-return result;
-}
-catch(err){
-console.log(err)
-return err;
-}
+		if(arrayDivs[2].textContent.indexOf("Changes") == -1){
+			result = createCurrentObjectFromHTML(arrayDivs[2].querySelectorAll("p"));
+		}
+		else{
+			console.log("Changes Alert Present");
+			result = createCurrentObjectFromHTML(arrayDivs[3].querySelectorAll("p"));
+		}
+
+		//console.log(result);
+		return result;
+	}
+	catch(err){
+		console.log(err)
+		return err;
+	}
 
 }
 
@@ -56,6 +60,7 @@ function createCurrentObjectFromHTML(arrDiv){
 
   for(var index=0;index<arrDiv.length;index++){
     var childDivText = arrDiv[index].textContent.replace("Footnote","").replace("*","");
+			//console.log(childDivText);
     switch(index){
       case 0:
         tempObj.number = childDivText.split("#")[1].split(" ")[0];
